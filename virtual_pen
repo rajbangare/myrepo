@@ -1,0 +1,37 @@
+import tkinter as tk
+
+class VirtualPenApp(tk.Tk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Virtual Pen App")
+        self.geometry("800x600")
+
+        self.canvas = tk.Canvas(self, bg="white")
+        self.canvas.pack(fill=tk.BOTH, expand=True)
+
+        self.pen_color = "black"
+        self.line_width = 2
+        self.prev_x, self.prev_y = None, None
+
+        self.canvas.bind("<B1-Motion>", self.draw)
+
+    def draw(self, event):
+        if self.prev_x is not None and self.prev_y is not None:
+            x, y = event.x, event.y
+            self.canvas.create_line(self.prev_x, self.prev_y, x, y, fill=self.pen_color, width=self.line_width)
+            self.prev_x, self.prev_y = x, y
+
+    def set_pen_color(self, color):
+        self.pen_color = color
+
+    def set_line_width(self, width):
+        self.line_width = width
+
+if __name__ == "__main__":
+    app = VirtualPenApp()
+    app.mainloop()
+In this code, we use the Tkinter library to create a simple GUI window with a white canvas. When the left mouse button is pressed and moved (B1-Motion event), the draw method is called, which draws a line on the canvas from the previous position to the current position. The set_pen_color and set_line_width methods allow changing the pen's color and width, respectively.
+
+To run this code, you need to have Python and Tkinter installed on your system. Save the code in a file with a .py extension, and then run it. You'll see a window with a white canvas where you can draw using the mouse. Left-click and drag the mouse to draw lines, and you can also change the pen color and line width by calling the corresponding methods.
+  
